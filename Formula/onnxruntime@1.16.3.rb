@@ -32,7 +32,7 @@ class OnnxruntimeAT1163 < Formula
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
-    system "cp", "include/onnxruntime/core/providers/coreml/coreml_provider_factory.h", "#{include}/onnxruntime/"
+    FileUtils.cp "include/onnxruntime/core/providers/coreml/coreml_provider_factory.h", "#{include}/onnxruntime/"
   end
 
   test do
