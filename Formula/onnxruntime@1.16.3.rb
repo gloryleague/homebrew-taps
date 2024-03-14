@@ -27,12 +27,12 @@ class OnnxruntimeAT1163 < Formula
 
     # CoreML is currently in preview status
     cmake_args.push "-Donnxruntime_USE_COREML=ON"
-    
+
     system "cmake", "-S", "cmake", "-B", "build", *cmake_args, *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
-    FileUtils.cp "include/onnxruntime/core/providers/coreml/coreml_provider_factory.h", "#{include}/onnxruntime/"
+    cp "include/onnxruntime/core/providers/coreml/coreml_provider_factory.h", "#{include}/onnxruntime/"
   end
 
   test do
