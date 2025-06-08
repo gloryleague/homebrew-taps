@@ -36,7 +36,7 @@ class OnnxruntimeAT1163 < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath / "test.c").write <<~EOS
       #include <onnxruntime/onnxruntime_c_api.h>
       #include <stdio.h>
       int main()
@@ -45,8 +45,8 @@ class OnnxruntimeAT1163 < Formula
         return 0;
       }
     EOS
-    system ENV.cc, "-I#{include}", testpath/"test.c",
-           "-L#{lib}", "-lonnxruntime", "-o", testpath/"test"
+    system ENV.cc, "-I#{include}", testpath / "test.c",
+           "-L#{lib}", "-lonnxruntime", "-o", testpath / "test"
     assert_equal version, shell_output("./test").strip
   end
 end
