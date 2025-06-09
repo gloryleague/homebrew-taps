@@ -13,8 +13,6 @@ class OnnxruntimeAT1220 < Formula
     strategy :github_latest
   end
 
-  keg_only :versioned_formula
-
   depends_on "cmake" => :build
   depends_on "python@3.13" => :build
 
