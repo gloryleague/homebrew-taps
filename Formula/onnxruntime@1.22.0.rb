@@ -1,10 +1,11 @@
-# https://github.com/Homebrew/homebrew-core/blob/1681ec7ed2dec74fadb5280412db53dd221e20a5/Formula/o/onnxruntime.rb
-class OnnxruntimeAT1171 < Formula
+# Adjusted from 1.22.0 at homebrew-core
+# https://github.com/Homebrew/homebrew-core/blob/173c655e46604b00e75258edab63caaa70e7eedf/Formula/o/onnxruntime.rb
+class OnnxruntimeAT1220 < Formula
   desc "Cross-platform, high performance scoring engine for ML models"
   homepage "https://github.com/microsoft/onnxruntime"
+  version  "1.22.0"
   url "https://github.com/microsoft/onnxruntime.git",
-      tag:      "v1.17.1",
-      revision: "8f5c79cb63f09ef1302e85081093a3fe4da1bc7d"
+      revision: "f57db79743c4d1a3553aa05cf95bcd10966030e6" # 1.22.0 plus some fixes
   license "MIT"
 
   livecheck do
@@ -15,15 +16,19 @@ class OnnxruntimeAT1171 < Formula
   keg_only :versioned_formula
 
   depends_on "cmake" => :build
-  depends_on "python@3.12" => :build
-
-  fails_with gcc: "5" # GCC version < 7 is no longer supported
+  depends_on "python@3.13" => :build
 
   def install
+    python3 = which("python3.13")
+
+    # Use CMake's FetchContent to manage dependencies
+    # https://onnxruntime.ai/docs/build/dependencies.html#build-everything-from-source
     cmake_args = %W[
+      -DHOMEBREW_ALLOW_FETCHCONTENT=ON
+      -DFETCHCONTENT_TRY_FIND_PACKAGE_MODE=NEVER
       -Donnxruntime_RUN_ONNX_TESTS=OFF
       -Donnxruntime_GENERATE_TEST_REPORTS=OFF
-      -DPYTHON_EXECUTABLE=#{which("python3.12")}
+      -DPYTHON_EXECUTABLE=#{python3}
       -Donnxruntime_BUILD_SHARED_LIB=ON
       -Donnxruntime_BUILD_UNIT_TESTS=OFF
     ]
