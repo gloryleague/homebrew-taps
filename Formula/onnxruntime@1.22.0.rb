@@ -23,12 +23,14 @@ class OnnxruntimeAT1220 < Formula
     # https://onnxruntime.ai/docs/build/dependencies.html#build-everything-from-source
     cmake_args = %W[
       -DHOMEBREW_ALLOW_FETCHCONTENT=ON
+      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
       -DFETCHCONTENT_TRY_FIND_PACKAGE_MODE=NEVER
       -Donnxruntime_RUN_ONNX_TESTS=OFF
       -Donnxruntime_GENERATE_TEST_REPORTS=OFF
       -DPYTHON_EXECUTABLE=#{python3}
       -Donnxruntime_BUILD_SHARED_LIB=ON
       -Donnxruntime_BUILD_UNIT_TESTS=OFF
+      -Donnxruntime_USE_COREML=ON
     ]
 
     system "cmake", "-S", "cmake", "-B", "build", *cmake_args, *std_cmake_args
